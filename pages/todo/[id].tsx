@@ -4,7 +4,7 @@ import { trpc } from '../../utils/trpc';
 export default function TodoDetail() {
   const router = useRouter();
   const { id } = router.query;
-  const todoQuery = trpc.todo.getById.useQuery(id as string, {
+  const todoQuery = trpc.todo.getByid.useQuery(id as string, {
     enabled: !!id,
   });
 
