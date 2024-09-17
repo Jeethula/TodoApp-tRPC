@@ -2,9 +2,18 @@ import { z } from 'zod';
 import { router, publicProcedure } from '../trpc';
 
 export const todoRouter = router({
-  getAll: publicProcedure.query(async ({ ctx }) => {
-    return ctx.prisma.todo.findMany();
-  }),
+
+    
+    getAll: publicProcedure.query(async ({ ctx }) => {
+        try {
+          const todos = await ctx.prisma.todo.findMany();
+          return todos;
+        } catch (error) {
+          console.error('Error fetching todos:', error);
+          throw new Error('Failed to fetch todos');
+        }
+      }),
+
   getById: publicProcedure
     .input(z.string())
     .query(async ({ ctx, input }) => {
